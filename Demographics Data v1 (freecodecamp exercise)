@@ -1,0 +1,35 @@
+import pandas as pd
+
+
+def calculate_demographic_data(print_data=True):
+    # Read data from file
+    df = pd.read_csv('adult.data.csv')
+
+    # How many of each race are represented in this dataset? 
+    race_count = {'White': sum(df['race'] == 'White'), 'Black': sum(df['race'] == 'Black')}
+ 
+    # What is the average age?
+    average_age_men = df['age'].mean()
+
+    # What is the percentage of people who have a Bachelor's degree?
+    num_bach = sum(df['education'] == 'Bachelors')    # number with bachlors
+    num_pop = sum(df['sex'] ==  ('Male' or 'Female')) # total population
+    percentage_bachelors = (100 * num_bach)/num_pop
+    
+    # How many in each country
+    country_count = {'USA': sum(df['native-country'] == 'United-States'), 'Japan': sum(df['native-country'] == 'Japan'),
+                     'Cuba':sum(df['native-country'] == 'Cuba'), 'Mexico': sum(df['native-country'] == 'Mexico'),
+                     'India': sum(df['native-country'] == 'India'), 'Jamaica': sum(df['native-country'] == 'Jamaica'),
+                     'Taiwan': sum(df['native-country'] == 'Taiwan')
+                    }
+    
+    #return the values of function
+    return {
+        'Race': race_count,
+        'Average age': average_age_men,
+        'Percentage Bachelors degree': percentage_bachelors,
+        'Countries': country_count
+             }
+
+#Call funtion
+calculate_demographic_data(print_data=True)
